@@ -1,0 +1,259 @@
+//Functions
+@function rem($pixel) {
+  $pixel: ($pixel / 16) + rem;
+  @return $pixel;
+}
+//Mixins
+@mixin flex($direction, $content, $items) {
+  display: flex;
+  flex-direction: $direction;
+  place-content: $content;
+  place-items: $items;
+}
+@mixin grid($flow, $columns, $rows, $content, $items) {
+  display: grid;
+  grid-auto-flow: $flow;
+  grid-template-columns: $columns;
+  grid-template-rows: $rows;
+  place-content: $content;
+  place-items: $items;
+}
+//Variables
+$Strong_Cyan: hsl(172, 67%, 45%);
+$Very_dark_cyan: hsl(183, 100%, 15%);
+$Dark_grayish_cyan: hsl(186, 14%, 43%);
+$Dark_grayish_cyan: hsl(184, 14%, 56%);
+$Light_grayish_cyan: hsl(185, 41%, 84%);
+$Lighter_grayish_cyan: hsl(189, 41%, 97%);
+$White: hsl(0, 0%, 100%);
+$Primary_font: "Space Mono", helvetica, arial, SANS-serif;
+$Main_fontSize: rem(24);
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  width: 100%;
+  height: 100vh;
+  @include flex(column, center, center);
+  background-color: $Light_grayish_cyan;
+  font-family: $Primary_font;
+  font-size: $Main_fontSize;
+  font-weight: 400;
+
+  h1 {
+    margin-bottom: 3rem;
+    width: 25%;
+    color: $Very_dark_cyan;
+    text-align: center;
+    font-size: rem(20);
+    letter-spacing: rem(14);
+    line-height: rem(32);
+  }
+  h2 {
+    font-size: rem(12);
+  }
+}
+.Main {
+  position: relative;
+  width: 100%;
+  margin-top: rem(32);
+  background-color: $White;
+  padding: 2rem;
+  border-radius: 2rem 2rem 0rem 0rem;
+  form {
+    @include flex(column, space-between, center);
+  }
+  h3 {
+    margin-bottom: 0.5rem;
+    font-size: rem(16);
+    font-weight: 400;
+    color: $Very_dark_cyan;
+  }
+  input {
+    position: relative;
+    width: 100%;
+    height: 40px;
+    border-radius: 0.4rem;
+    padding: 0.7rem;
+    font-size: rem(16);
+    font-weight: 700;
+    background-color: $Lighter_grayish_cyan;
+    border: none;
+  }
+  .people,
+  .bill {
+    svg {
+      position: absolute;
+      left: 0.8rem;
+      top: 60%;
+      z-index: 10;
+    }
+    input {
+      width: 100%;
+      text-align: right;
+      font-weight: 500;
+      font-size: 1.2rem;
+      color: $Very_dark_cyan;
+    }
+  }
+  .tip {
+    input {
+      text-align: right;
+      font-weight: 500;
+      font-size: 1.2rem;
+      color: $Very_dark_cyan;
+    }
+  }
+  .results {
+    background-color: $Very_dark_cyan;
+    padding: 1.5rem;
+    border-radius: 1rem;
+    color: $White;
+    @include grid(
+      row,
+      repeat(2, 1fr),
+      repeat(3, 1fr),
+      space-evenly,
+      space-evenly
+    );
+    grid-gap: 1.5rem;
+    button {
+      width: 100%;
+      height: max-content;
+      place-self: flex-end;
+      font-family: $Primary_font;
+      font-size: 1.2rem;
+      font-weight: bold;
+      padding: 0.5rem 0rem;
+      border: none;
+      border-radius: 0.3rem;
+      grid-column: span 2;
+      background-color: $Strong_Cyan;
+      color: $Very_dark_cyan;
+      &:hover {
+        background-color: $Light_grayish_cyan;
+        color: $Very_dark_cyan;
+      }
+    }
+    h1 {
+      width: 100%;
+      margin: 0;
+      color: $Strong_Cyan;
+      letter-spacing: 0.3rem;
+      font-size: 1.5rem;
+    }
+    h2 {
+      font-size: 1rem;
+    }
+    h2::after {
+      position: absolute;
+      left: 1.5rem;
+      transform: translateY(135%);
+      color: $Dark_grayish_cyan;
+      font-size: 0.8rem;
+      content: " / Person";
+    }
+  }
+}
+.Buttons_Main {
+  position: relative;
+  @include grid(row, repeat(2, 1fr), repeat(3, 1fr), center, space-evenly);
+  grid-gap: 1rem;
+  button {
+    width: 100%;
+    background-color: $Very_dark_cyan;
+    color: white;
+    font-family: $Primary_font;
+    font-size: 1.2rem;
+    font-weight: bold;
+    padding: 0.5rem 0rem;
+    border: none;
+    border-radius: 0.3rem;
+    &:focus,
+    &:hover {
+      background-color: $Strong_Cyan;
+      color: $Very_dark_cyan;
+    }
+  }
+  ::placeholder {
+    text-align: right;
+    font-weight: 500;
+    font-size: 1.2rem;
+    color: $Very_dark_cyan;
+  }
+}
+.bill,
+.tip,
+.people,
+.results {
+  position: relative;
+  width: 100%;
+  margin-bottom: 2rem;
+}
+.people input:focus {
+  outline: 2px solid red;
+}
+.people h3:after {
+  position: absolute;
+  color: red;
+  right: 0;
+  top: 0;
+  content: "Can't Be 0";
+}
+input:focus {
+  outline: 2px solid $Strong_Cyan;
+}
+.attribution {
+  position: relative;
+  width: 100%;
+  bottom: 0;
+  text-align: center;
+  font-size: rem(10);
+  a {
+    color: hsl(228, 45%, 44%);
+  }
+}
+@media (min-width: 1020px) {
+  .Main {
+    display: flex;
+    flex-direction: row;
+    place-content: space-between;
+    /* display: grid;
+    grid-auto-flow: row;
+    grid-template-areas:"bill results" "tip results" "people results";
+    grid-gap: 1rem; */
+    width: 60%;
+    border-radius: 2rem;
+    margin: 0;
+  }
+  form {
+    width: 48%;
+  }
+  .Buttons_Main {
+    position: relative;
+    @include grid(row, repeat(3, 1fr), repeat(2, 1fr), center, center);
+    grid-gap: 1rem;
+  }
+  .bill {
+    grid-area: bill;
+  }
+  .people {
+    grid-area: people;
+    margin-bottom: 0;
+  }
+  .tip {
+    grid-area: tip;
+  }
+  .results {
+    width: 48%;
+    grid-area: results;
+    margin-bottom: 0;
+  }
+  .attribution {
+    position: relative;
+    bottom: -14%;
+  }
+}
